@@ -9,10 +9,12 @@ from enemies.orcClub import OrcClub
 from towers.archerTower import ArcherTower
 from towers.wizardTower import WizardTower
 from towers.teslaTower import TeslaTower
+from menu.menu import VerticalMenu
 
 pygame.font.init()
 lives_image = pygame.image.load(os.path.join("assets", "heart.png"))
 gold_image = pygame.image.load(os.path.join("assets", "gold.png"))
+side_menu_image = pygame.transform.scale(pygame.image.load(os.path.join("assets", "HUD.png")), (90, 40))
 
 
 class Game:
@@ -28,8 +30,13 @@ class Game:
         self.timer = time.time()
         self.life_font = pygame.font.SysFont("italic", 50)
         self.selected_tower = None
+        self.menu = VerticalMenu(self.width - side_menu_image.get_width(), 150, side_menu_image)
 
     def run(self):
+        """
+        Main game loop
+        :return:
+        """
         run = True
         clock = pygame.time.Clock()
         while run:
@@ -51,27 +58,27 @@ class Game:
                             if self.money >= cost:
                                 self.money -= cost
                                 self.selected_tower.upgrade()
-                    if not(button_clicked):
+                    if not button_clicked:
                         for tower in self.towers:
                             if tower.click(pos[0], pos[1]):
                                 tower.selected = True
                                 self.selected_tower = tower
                             else:
                                 tower.selected = False
-            # Loopear los enemigos
+            # Loop all the enemies
             to_del = []
             for en in self.enemies:
                 if en.y >= self.height:
                     to_del.append(en)
-            # Deletear enemigos
+            # Delete enemies
             for d in to_del:
                 self.lives -= 1
                 self.enemies.remove(d)
 
-            # loopear las torres
+            # Loop all the towers
             for tower in self.towers:
                 self.money += tower.attack(self.enemies)
-            # si perdes
+            # If you loose
             if self.lives <= 0:
                 print("You loose")
                 run = False
@@ -79,23 +86,27 @@ class Game:
         pygame.quit()
 
     def draw(self):
+        """
+        Main draw function
+        :return:
+        """
         self.window.blit(self.background, (0, 0))
 
-        #Dibujar enemigos
+        # Draw enemies
         for en in self.enemies:
             en.draw(self.window)
 
-        #Dibujar torres
+        # Draw towers
         for tw in self.towers:
             tw.draw(self.window)
 
-        #Dibujar vidas
+        # Draw lives
         life_text = self.life_font.render(str(self.lives), True, (0, 0, 0))
         life = pygame.transform.scale(lives_image, (100, 100))
         start_x = self.width - life.get_width() - 10
         self.window.blit(life_text, (start_x - life_text.get_width() + 30, 40))
         self.window.blit(life, (start_x, 10))
-        #Dibujar oro
+        # Draw gold
         gold_text = self.life_font.render(str(self.money), True, (0, 0, 0))
         gold = pygame.transform.scale(gold_image, (100, 100))
         start_x = self.width - gold.get_width() - 80
@@ -106,6 +117,7 @@ class Game:
 
     def draw_menu(self):
         pass
+
 
 g = Game()
 g.run()

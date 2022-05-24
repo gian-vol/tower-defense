@@ -2,7 +2,10 @@ import pygame
 import os
 from .enemy import Enemy
 
+
 imgs = []
+
+
 for x in range(6):
     add_str = str(x)
     imgs.append(pygame.transform.scale(

@@ -21,8 +21,8 @@ class Menu:
 
     def draw(self, win):
         """
-        dibuja botones y fondo del menu
-        :param win:
+        Draws buttons and the background of the menu
+        :param win: The surface
         :return:
         """
         win.blit(self.background, (self.x - self.background.get_width() / 2, self.y + 20))
@@ -34,9 +34,9 @@ class Menu:
 
     def click(self, X, Y):
         """
-        retorna si la posicion colisiono con el menu
-        :param X:
-        :param Y:
+        Returns if the position collided with the menu
+        :param X: X position int
+        :param Y: Y posiition int
         :return:
         """
         if X <= self.x + self.width and X >= self.x:
@@ -46,16 +46,16 @@ class Menu:
 
     def get_item_cost(self):
         """
-        retorna el costo de upgrade
+        :returns: The cost of the upgrade
         """
         return self.item_cost[self.tower.level - 1]
 
     def get_clicked(self, X, Y):
         """
-        retorna el item clikeado del menu
-        :param X:
-        :param Y:
-        :return:
+        Returns the clicked item in the menu
+        :param X: X position int
+        :param Y: Y position int
+        :return: the item clicked
         """
         for button in self.buttons:
             if button.click(X, Y):
@@ -64,10 +64,10 @@ class Menu:
 
     def add_button(self, image, name):
         """
-        agrega el boton al menu
-        :param image:
-        :param name:
-        :return:
+        Adds the button to the menu
+        :param image: The button image
+        :param name: The button name
+        :return: None
         """
         self.items += 1
         increment_x = self.width / self.items / 2
@@ -76,9 +76,44 @@ class Menu:
         self.buttons.append(Button(button_x, button_y, image, name))
 
 
+class VerticalMenu(Menu):
+    """
+    Class fot the vertical menu on the side bar
+    """
+    def __init__(self, x, y, image):
+        self.x = x
+        self.y = y
+        self.width = image.get_width()
+        self.height = image.get_height()
+        self.images = []
+        self.buttons = []
+        self.items = 0
+        self.background = image
+        self.font = pygame.font.SysFont("arial", 20)
+
+    def add_button(self, image, name, cost):
+        """
+        Adds the button to the menu
+        :param image: The button image
+        :param name: The button name
+        :return: None
+        """
+        self.items += 1
+        button_x = self.x
+        button_y = self.y + (self.items - 1) * 40
+        self.buttons.append(VerticalButton(button_x, button_y, image, name, cost))
+
+    def get_tower_cost(self):
+        """
+
+        :return:
+        """
+        return None
+
+
 class Button:
     """
-    clase de botones para el menu
+    Class for the buttons in the menu
     """
     def __init__(self, x, y, image, name):
         self.image = image
@@ -90,10 +125,10 @@ class Button:
 
     def click(self, X, Y):
         """
-        retorna si la posicion colisiono con el menu
-        :param X:
-        :param Y:
-        :return:
+        Returns if the position collided with the menu
+        :param X: X position int
+        :param Y: Y position int
+        :return: bool
         """
         if X <= self.x + self.width and X >= self.x:
             if Y <= self.y + self.height and Y >= self.y:
@@ -102,3 +137,12 @@ class Button:
 
     def draw(self, win):
         win.blit(self.image, (self.x, self.y))
+
+
+class VerticalButton(Button):
+    """
+    Class for the vertical buttons in the menu
+    """
+    def __init__(self, x, y, image, name, cost):
+        super().__init__(x, y, img, name)
+        self.cost = cost

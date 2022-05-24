@@ -43,7 +43,7 @@ class Enemy:
         self.draw_health_bar(win)
         self.move()
 
-    def collide (self, X, Y):
+    def collide(self, X, Y):
         """
         Returns if we hit an enemy
         :param x: X position int
@@ -58,8 +58,8 @@ class Enemy:
 
     def draw_health_bar(self, win):
         """
-        dibujar la barra bajo los enemigos
-        :param win:
+        Draw the bar under the enemies
+        :param win: The surface we are drawing
         :return:
         """
         length = 50
@@ -84,7 +84,7 @@ class Enemy:
         length = math.sqrt((dirn[0])**2 + (dirn[1])**2)
         dirn = (dirn[0]/length, dirn[1]/length)
 
-        if dirn[0] < 0 and not(self.flipped):
+        if dirn[0] < 0 and not self.flipped:
             self.flipped = True
             for x, img in enumerate(self.imgs):
                 self.imgs[x] = pygame.transform.flip(img, True, False)
@@ -94,16 +94,16 @@ class Enemy:
         self.x = move_x
         self.y = move_y
 
-        # Moverse al proximo punto
-        if dirn[0] >= 0: #moviendo a la derecha
-            if dirn[1] >= 0: #moviendo abajo
+        # Moving to the next point
+        if dirn[0] >= 0:  # Moving right
+            if dirn[1] >= 0:  # Moving down
                 if self.x >= x2 and self.y >= y2:
                     self.path_position += 1
             else:
                 if self.x >= x2 and self.y <= y2:
                     self.path_position += 1
-        else: #moviendo izquierda
-            if dirn[1] >= 0: #moviendo abajo
+        else:  # Moving left
+            if dirn[1] >= 0:  # Moving down
                 if self.x <= x2 and self.y >= y2:
                     self.path_position += 1
             else:
@@ -111,6 +111,11 @@ class Enemy:
                     self.path_position += 1
 
     def hit(self, damage):
+        """
+
+        :param damage: Damage int
+        :return:
+        """
         self.hitPoints -= damage
         if self.hitPoints <= 0:
             return True

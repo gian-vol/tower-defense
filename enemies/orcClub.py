@@ -4,6 +4,8 @@ from .enemy import Enemy
 
 
 imgs = []
+
+
 for x in range(6):
     add_str = str(x)
     imgs.append(pygame.transform.scale(
@@ -18,5 +20,3 @@ class OrcClub(Enemy):
         self.hitPoints = self.maxHitPoints
         self.name = "club"
         self.money = 2
-
-

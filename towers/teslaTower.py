@@ -13,7 +13,7 @@ class TeslaTower(Tower):
         self.damage = 3
         self.inRange = False
 
-        # cargar las imagenes de tesla tower
+        # Load all images for the Tesla tower
         for x in range(3):
             add_str = str(x)
             self.towerImages.append(pygame.transform.scale(
@@ -25,8 +25,8 @@ class TeslaTower(Tower):
 
     def attack(self, enemies):
         """
-        ataca un enemigo en la lista
-        :param enemies:
+        Attacks an enemy from the list
+        :param enemies: list of enemies
         :return:
         """
         money = 0
@@ -43,7 +43,7 @@ class TeslaTower(Tower):
 
                 if len(enemy_closest) > 0:
                     first_enemy = enemy_closest[0]
-                    if first_enemy.hit(self.damage) == True:
+                    if first_enemy.hit(self.damage):
                         money = first_enemy.money
                         enemies.remove(first_enemy)
             return money

@@ -15,12 +15,12 @@ class WizardTower(Tower):
         self.inRange = False
         self.facingLeft = True
 
-        # cargar las imagenes de archer tower
+        # Load all images for the wizard tower
         for x in range(3):
             add_str = str(x)
             self.towerImages.append(pygame.transform.scale(
                 pygame.image.load(os.path.join("assets/towers/wizard", "wizardTower_0" + add_str + ".png")), (94, 94)))
-        # cargar las imagenes de arquero
+        # Load all images of the wizard
         for x in range(8):
             add_str = str(x)
             self.wizardImages.append(pygame.transform.scale(
@@ -42,8 +42,8 @@ class WizardTower(Tower):
 
     def attack(self, enemies):
         """
-        ataca un enemigo en la lista
-        :param enemies:
+        Attacks an enemy from the list
+        :param enemies: list of enemies
         :return:
         """
         money = 0
@@ -58,12 +58,12 @@ class WizardTower(Tower):
                 self.inRange = True
                 enemy_closest.append(enemy)
 
-        #trackea posicion enemigo y gira derecha o izq
+        # Tracks the position of the enemy and faces right or left
         enemy_closest.sort(key=lambda x: x.x)
         if len(enemy_closest) > 0:
             first_enemy = enemy_closest[0]
             if self.wizardCount == 8:
-                if first_enemy.hit(self.damage) == True:
+                if first_enemy.hit(self.damage):
                     money = first_enemy.money
                     enemies.remove(first_enemy)
 
