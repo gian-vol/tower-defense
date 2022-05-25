@@ -12,9 +12,8 @@ class OrcSword(Enemy):
             pygame.image.load(os.path.join("assets/enemies/orcSword/RUN", "RUN_00" + add_str + ".png")), (64, 64)))
 
     def __init__(self):
+        self.maxHitPoints = 9
         super().__init__()
         self.imgs = self.imgs.copy()
-        self.maxHitPoints = 7
-        self.hitPoints = self.maxHitPoints
         self.name = "sword"
-        self.money = 4
+        self.money = 6

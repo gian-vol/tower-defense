@@ -31,7 +31,7 @@ class Tower:
         :return: None
         """
         image = self.towerImages[self.level - 1]
-        win.blit(image, (self.x - image.get_width()//2, self.y - image.get_height()//2))
+        win.blit(image, (self.x - image.get_width() // 2, self.y - image.get_height() // 2))
 
         # To draw the menu
         if self.selected:
@@ -44,7 +44,7 @@ class Tower:
         :return: None
         """
         if self.selected:
-            range_circle = pygame.Surface((self.range*2, self.range*2), pygame.SRCALPHA, 32)
+            range_circle = pygame.Surface((self.range * 2, self.range * 2), pygame.SRCALPHA, 32)
             pygame.draw.circle(range_circle, (0, 0, 255, 50), (self.range, self.range), self.range, 0)
             win.blit(range_circle, (self.x - self.range, self.y - self.range))
 
@@ -57,8 +57,8 @@ class Tower:
         """
         image = self.towerImages[self.level - 1]
 
-        return (X <= self.x + image.get_width() // 3 and X >= self.x - image.get_width() // 3)\
-               and (Y <= self.y + image.get_height() // 2 and Y >= self.y - image.get_height() // 2)
+        return (self.x + image.get_width() // 3 >= X >= self.x - image.get_width() // 3) \
+               and (self.y + image.get_height() // 2 >= Y >= self.y - image.get_height() // 2)
 
     def upgrade(self):
         """

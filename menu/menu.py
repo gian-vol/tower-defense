@@ -40,8 +40,8 @@ class Menu:
         :param Y: Y posiition int
         :return: bool
         """
-        return (X <= self.x + self.width and X >= self.x) \
-               and (Y <= self.y + self.height and Y >= self.y)
+        return (self.x + self.width >= X >= self.x) \
+               and (self.y + self.height >= Y >= self.y)
 
     def get_clicked(self, X, Y):
         """
@@ -78,6 +78,7 @@ class VerticalMenu(Menu):
     """
     Class fot the vertical menu on the side bar
     """
+
     def __init__(self, x, y, image):
         self.x = x
         self.y = y
@@ -130,6 +131,7 @@ class Button:
     """
     Class for the buttons in the menu
     """
+
     def __init__(self, menu, image, name):
         self.image = image
         self.menu = menu
@@ -162,14 +164,15 @@ class Button:
         :param Y: Y position int
         :return: bool
         """
-        return (X <= self.x + self.width and X >= self.x) \
-               and (Y <= self.y + self.height and Y >= self.y)
+        return (self.x + self.width >= X >= self.x) \
+               and (self.y + self.height >= Y >= self.y)
 
 
 class VerticalButton(Button):
     """
     Class for the vertical buttons in the menu
     """
+
     def __init__(self, x, y, image, name, cost):
         self.image = image
         self.x = x

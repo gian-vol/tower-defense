@@ -22,7 +22,7 @@ class WizardTower(Tower):
             pygame.image.load(os.path.join("assets/shooters/wizard", "wizard_0" + add_str + ".png")), (80, 80)))
 
     def __init__(self, x, y):
-        self.upgrade_cost = [20, 30, "MAX"]
+        self.upgrade_cost = [50, 70, "MAX"]
         super().__init__(x, y)
         self.name = "wizard"
         self.towerImages = self.towerImages.copy()

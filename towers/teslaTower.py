@@ -16,7 +16,7 @@ class TeslaTower(Tower):
             pygame.image.load(os.path.join("assets/towers/tesla", "teslaTower_0" + add_str + ".png")), (84, 84)))
 
     def __init__(self, x, y):
-        self.upgrade_cost = [60, 90, "MAX"]
+        self.upgrade_cost = [600, 900, "MAX"]
         super().__init__(x, y)
         self.name = "tesla"
         self.towerImages = self.towerImages.copy()
@@ -35,7 +35,6 @@ class TeslaTower(Tower):
         :param enemies: list of enemies
         :return: int
         """
-        money = 0
         self.inRange = False
         enemy_closest = []
         for enemy in enemies:
@@ -52,4 +51,5 @@ class TeslaTower(Tower):
                     if first_enemy.hit(self.damage):
                         money = first_enemy.money
                         enemies.remove(first_enemy)
-            return money
+                        return money
+        return 0

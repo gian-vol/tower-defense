@@ -12,9 +12,8 @@ class OrcClub(Enemy):
             pygame.image.load(os.path.join("assets/enemies/orcClub/RUN", "RUN_00" + add_str + ".png")), (64, 64)))
 
     def __init__(self):
+        self.maxHitPoints = 6
         super().__init__()
         self.imgs = self.imgs.copy()
-        self.maxHitPoints = 50
-        self.hitPoints = self.maxHitPoints
         self.name = "club"
         self.money = 2

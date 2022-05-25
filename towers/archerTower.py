@@ -22,7 +22,7 @@ class ArcherTower(Tower):
             pygame.image.load(os.path.join("assets/shooters/archer", "archer_0" + add_str + ".png")), (50, 50)))
 
     def __init__(self, x, y):
-        self.upgrade_cost = [10, 40, "MAX"]
+        self.upgrade_cost = [20, 80, "MAX"]
         super().__init__(x, y)
         self.name = "archer"
         self.towerImages = self.towerImages.copy()

@@ -9,9 +9,7 @@ class Enemy:
     def __init__(self):
         self.height = 50
         self.width = 50
-        self.hitPoints = 0
-        self.maxHitPoints = 0
-        self.velocity = 3
+        self.hitPoints = self.maxHitPoints
         self.path = [(162, -10), (162, 38), (162, 70), (162, 101), (162, 132), (162, 168), (162, 199), (194, 209), (238, 209),
                      (277, 209), (323, 209), (365, 209), (412, 209), (455, 209), (500, 209), (549, 209), (593, 209),
                      (639, 209), (674, 209), (709, 209), (709, 250), (709, 291), (709, 324), (709, 362), (709, 398),
@@ -49,10 +47,8 @@ class Enemy:
         :param y: Y position int
         :return: bool
         """
-        if X <= self.x + self.width and X >= self.x:
-            if Y <= self.Y + self.height and Y >= self.y:
-                return True
-        return False
+        return self.x + self.width >= X >= self.x\
+               and self.Y + self.height >= Y >= self.y
 
     def draw_health_bar(self, win):
         """
@@ -115,6 +111,4 @@ class Enemy:
         :return: bool
         """
         self.hitPoints -= damage
-        if self.hitPoints <= 0:
-            return True
-        return False
+        return self.hitPoints <= 0
