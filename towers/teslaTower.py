@@ -20,7 +20,6 @@ class TeslaTower(Tower):
         super().__init__(x, y)
         self.name = "tesla"
         self.towerImages = self.towerImages.copy()
-        self.archerCount = 0
         self.range = 200
         self.damage = 3
         self.inRange = False

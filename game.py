@@ -33,10 +33,10 @@ class Game:
         self.width = 960
         self.height = 720
         self.window = pygame.display.set_mode((self.width, self.height))
-        self.enemies = [OrcSword()]
+        self.enemies = []
         self.towers = []
         self.lives = 3
-        self.money = 5000
+        self.money = 500
         self.background = pygame.image.load(os.path.join("assets", "background.png"))
         self.timer = time.time()
         self.life_font = pygame.font.SysFont("italic", 50)
