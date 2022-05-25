@@ -5,19 +5,21 @@ from .tower import Tower
 
 
 class TeslaTower(Tower):
+    # Load all images for the Tesla tower as static
+    towerImages = []
+    for x in range(3):
+        add_str = str(x)
+        towerImages.append(pygame.transform.scale(
+            pygame.image.load(os.path.join("assets/towers/tesla", "teslaTower_0" + add_str + ".png")), (84, 64)))
+
     def __init__(self, x, y):
+        self.upgrade_cost = [60, 90, "MAX"]
         super().__init__(x, y)
-        self.towerImages = []
+        self.towerImages = self.towerImages.copy()
         self.archerCount = 0
         self.range = 200
         self.damage = 3
         self.inRange = False
-
-        # Load all images for the Tesla tower
-        for x in range(3):
-            add_str = str(x)
-            self.towerImages.append(pygame.transform.scale(
-                pygame.image.load(os.path.join("assets/towers/tesla", "teslaTower_0" + add_str + ".png")), (84, 64)))
 
     def draw(self, win):
         super().draw_radius(win)

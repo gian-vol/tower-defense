@@ -5,26 +5,29 @@ from .tower import Tower
 
 
 class ArcherTower(Tower):
+    towerImages = []
+    archerImages = []
+    # Load all images for the archer tower as static
+    for x in range(3):
+        add_str = str(x)
+        towerImages.append(pygame.transform.scale(
+            pygame.image.load(os.path.join("assets/towers/archer", "archerTower_0" + add_str + ".png")), (64, 64)))
+    # Load all images of the archer as static
+    for x in range(7):
+        add_str = str(x)
+        archerImages.append(pygame.transform.scale(
+            pygame.image.load(os.path.join("assets/shooters/archer", "archer_0" + add_str + ".png")), (50, 50)))
+
     def __init__(self, x, y):
+        self.upgrade_cost = [10, 40, "MAX"]
         super().__init__(x, y)
-        self.towerImages = []
-        self.archerImages = []
+        self.towerImages = self.towerImages.copy()
+        self.archerImages = self.archerImages.copy()
         self.archerCount = 0
         self.range = 150
         self.damage = 1
         self.inRange = False
         self.facingLeft = True
-
-        # Load all images for the archer tower
-        for x in range(3):
-            add_str = str(x)
-            self.towerImages.append(pygame.transform.scale(
-                pygame.image.load(os.path.join("assets/towers/archer", "archerTower_0" + add_str + ".png")), (64, 64)))
-        # Load all images of the archer
-        for x in range(7):
-            add_str = str(x)
-            self.archerImages.append(pygame.transform.scale(
-                pygame.image.load(os.path.join("assets/shooters/archer", "archer_0" + add_str + ".png")), (50, 50)))
 
     def draw(self, win):
         super().draw_radius(win)
@@ -77,5 +80,3 @@ class ArcherTower(Tower):
                     self.archerImages[x] = pygame.transform.flip(img, True, False)
         return money
 
-    def get_upgrade_cost(self):
-        return self.menu.get_item_cost()

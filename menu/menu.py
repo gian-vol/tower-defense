@@ -1,11 +1,12 @@
 import pygame
 import os
-pygame.font.init()
-
-gold = pygame.transform.scale(pygame.image.load(os.path.join("assets", "gold.png")), (35, 35))
 
 
 class Menu:
+    pygame.font.init()
+    # Static asset loading
+    gold = pygame.transform.scale(pygame.image.load(os.path.join("assets", "gold.png")), (35, 35))
+
     def __init__(self, x, y, image, item_cost, tower):
         self.x = x
         self.y = y
@@ -28,7 +29,7 @@ class Menu:
         win.blit(self.background, (self.x - self.background.get_width() / 2, self.y + 20))
         for item in self.buttons:
             item.draw(win)
-            win.blit(gold, (item.x + item.width + 10, item.y + 8))
+            win.blit(self.gold, (item.x + item.width + 10, item.y + 8))
             text = self.font.render(str(self.item_cost[self.tower.level - 1]), True, (255, 255, 255))
             win.blit(text, (item.x + item.width + 15, item.y - 3))
 
@@ -43,12 +44,6 @@ class Menu:
             if Y <= self.y + self.height and Y >= self.y:
                 return True
         return False
-
-    def get_item_cost(self):
-        """
-        :returns: The cost of the upgrade
-        """
-        return self.item_cost[self.tower.level - 1]
 
     def get_clicked(self, X, Y):
         """

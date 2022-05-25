@@ -3,8 +3,9 @@ import math
 
 
 class Enemy:
-    imgs = []
-
+    """
+    Main enemy class
+    """
     def __init__(self):
         self.height = 50
         self.width = 50
@@ -24,7 +25,6 @@ class Enemy:
         self.distance = 0
         self.move_distance = 0
         self.animation_count = 0
-        self.imgs = []
         self.flipped = False
 
     def draw(self, win):

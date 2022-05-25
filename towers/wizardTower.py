@@ -5,26 +5,29 @@ from .tower import Tower
 
 
 class WizardTower(Tower):
+    towerImages = []
+    wizardImages = []
+    # Load all images for the wizard tower as static
+    for x in range(3):
+        add_str = str(x)
+        towerImages.append(pygame.transform.scale(
+            pygame.image.load(os.path.join("assets/towers/wizard", "wizardTower_0" + add_str + ".png")), (94, 94)))
+    # Load all images of the wizard as static
+    for x in range(8):
+        add_str = str(x)
+        wizardImages.append(pygame.transform.scale(
+            pygame.image.load(os.path.join("assets/shooters/wizard", "wizard_0" + add_str + ".png")), (80, 80)))
+
     def __init__(self, x, y):
+        self.upgrade_cost = [20, 30, "MAX"]
         super().__init__(x, y)
-        self.towerImages = []
-        self.wizardImages = []
+        self.towerImages = self.towerImages.copy()
+        self.wizardImages = self.wizardImages.copy()
         self.wizardCount = 0
         self.range = 100
         self.damage = 2
         self.inRange = False
         self.facingLeft = True
-
-        # Load all images for the wizard tower
-        for x in range(3):
-            add_str = str(x)
-            self.towerImages.append(pygame.transform.scale(
-                pygame.image.load(os.path.join("assets/towers/wizard", "wizardTower_0" + add_str + ".png")), (94, 94)))
-        # Load all images of the wizard
-        for x in range(8):
-            add_str = str(x)
-            self.wizardImages.append(pygame.transform.scale(
-                pygame.image.load(os.path.join("assets/shooters/wizard", "wizard_0" + add_str + ".png")), (80, 80)))
 
     def draw(self, win):
         super().draw_radius(win)
