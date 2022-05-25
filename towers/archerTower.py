@@ -5,6 +5,9 @@ from .tower import Tower
 
 
 class ArcherTower(Tower):
+    """
+    Archer Tower class
+    """
     towerImages = []
     archerImages = []
     # Load all images for the archer tower as static
@@ -21,6 +24,7 @@ class ArcherTower(Tower):
     def __init__(self, x, y):
         self.upgrade_cost = [10, 40, "MAX"]
         super().__init__(x, y)
+        self.name = "archer"
         self.towerImages = self.towerImages.copy()
         self.archerImages = self.archerImages.copy()
         self.archerCount = 0
@@ -33,7 +37,7 @@ class ArcherTower(Tower):
         super().draw_radius(win)
         super().draw(win)
 
-        if self.inRange:
+        if self.inRange and not self.moving:
             self.archerCount += 1
             if self.archerCount >= len(self.archerImages) * 3:
                 self.archerCount = 0
@@ -45,9 +49,9 @@ class ArcherTower(Tower):
 
     def attack(self, enemies):
         """
-        Attacks an enemy from the list
+        Attacks an enemy from the list and returns the gold if the enemy was killed
         :param enemies: list of enemies
-        :return:
+        :return: int
         """
         money = 0
         self.inRange = False

@@ -33,7 +33,6 @@ class Enemy:
         :param win: The surface
         :return: None
         """
-
         self.img = self.imgs[self.animation_count]
         self.animation_count += 1
         if self.animation_count >= len(self.imgs):
@@ -50,7 +49,6 @@ class Enemy:
         :param y: Y position int
         :return: bool
         """
-        "aca sería width /2?"
         if X <= self.x + self.width and X >= self.x:
             if Y <= self.Y + self.height and Y >= self.y:
                 return True
@@ -112,9 +110,9 @@ class Enemy:
 
     def hit(self, damage):
         """
-
+        Returns if the hitted enemy is dead
         :param damage: Damage int
-        :return:
+        :return: bool
         """
         self.hitPoints -= damage
         if self.hitPoints <= 0:

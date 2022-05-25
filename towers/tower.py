@@ -19,6 +19,7 @@ class Tower:
         self.level = 1
         self.damage = 1
         self.selected = False
+        self.moving = False
         # Define menu and buttons
         self.menu = Menu(self.x, self.y, self.menu_background, self.upgrade_cost, self)
         self.menu.add_button(self.upgrade_button, "Upgrade")
@@ -62,7 +63,7 @@ class Tower:
     def upgrade(self):
         """
         Upgrades the selected tower
-        :return:
+        :return: None
         """
         if self.level < len(self.towerImages):
             self.level += 1
@@ -77,9 +78,13 @@ class Tower:
 
     def move(self, x, y):
         """
-
+        Moves the tower to the defined position
+        :param x: int
+        :param y: int
         :return:
         """
         self.x = x
         self.y = y
-
+        self.menu.x = x
+        self.menu.y = y
+        self.menu.update()

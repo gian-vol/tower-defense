@@ -5,16 +5,20 @@ from .tower import Tower
 
 
 class TeslaTower(Tower):
+    """
+    Tesla Tower class
+    """
     # Load all images for the Tesla tower as static
     towerImages = []
     for x in range(3):
         add_str = str(x)
         towerImages.append(pygame.transform.scale(
-            pygame.image.load(os.path.join("assets/towers/tesla", "teslaTower_0" + add_str + ".png")), (84, 64)))
+            pygame.image.load(os.path.join("assets/towers/tesla", "teslaTower_0" + add_str + ".png")), (84, 84)))
 
     def __init__(self, x, y):
         self.upgrade_cost = [60, 90, "MAX"]
         super().__init__(x, y)
+        self.name = "tesla"
         self.towerImages = self.towerImages.copy()
         self.archerCount = 0
         self.range = 200
@@ -27,9 +31,9 @@ class TeslaTower(Tower):
 
     def attack(self, enemies):
         """
-        Attacks an enemy from the list
+        Attacks an enemy from the list and returns the gold if the enemy was killed
         :param enemies: list of enemies
-        :return:
+        :return: int
         """
         money = 0
         self.inRange = False

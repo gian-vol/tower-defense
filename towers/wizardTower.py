@@ -5,6 +5,9 @@ from .tower import Tower
 
 
 class WizardTower(Tower):
+    """
+    Wizard Tower class
+    """
     towerImages = []
     wizardImages = []
     # Load all images for the wizard tower as static
@@ -21,6 +24,7 @@ class WizardTower(Tower):
     def __init__(self, x, y):
         self.upgrade_cost = [20, 30, "MAX"]
         super().__init__(x, y)
+        self.name = "wizard"
         self.towerImages = self.towerImages.copy()
         self.wizardImages = self.wizardImages.copy()
         self.wizardCount = 0
@@ -33,7 +37,7 @@ class WizardTower(Tower):
         super().draw_radius(win)
         super().draw(win)
 
-        if self.inRange:
+        if self.inRange and not self.moving:
             self.wizardCount += 1
             if self.wizardCount >= len(self.wizardImages) * 3:
                 self.wizardCount = 0
@@ -45,9 +49,9 @@ class WizardTower(Tower):
 
     def attack(self, enemies):
         """
-        Attacks an enemy from the list
+        Attacks an enemy from the list and returns the gold if the enemy was killed
         :param enemies: list of enemies
-        :return:
+        :return: int
         """
         money = 0
         self.inRange = False

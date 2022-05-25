@@ -24,7 +24,7 @@ class Menu:
         """
         Draws buttons and the background of the menu
         :param win: The surface
-        :return:
+        :return: None
         """
         win.blit(self.background, (self.x - self.background.get_width() / 2, self.y + 20))
         for item in self.buttons:
@@ -38,12 +38,10 @@ class Menu:
         Returns if the position collided with the menu
         :param X: X position int
         :param Y: Y posiition int
-        :return:
+        :return: bool
         """
-        if X <= self.x + self.width and X >= self.x:
-            if Y <= self.y + self.height and Y >= self.y:
-                return True
-        return False
+        return (X <= self.x + self.width and X >= self.x) \
+               and (Y <= self.y + self.height and Y >= self.y)
 
     def get_clicked(self, X, Y):
         """
@@ -65,10 +63,15 @@ class Menu:
         :return: None
         """
         self.items += 1
-        increment_x = self.width / self.items / 2
-        button_x = self.x - self.background.get_width() // 2 + 5
-        button_y = self.y + 23
-        self.buttons.append(Button(button_x, button_y, image, name))
+        self.buttons.append(Button(self, image, name))
+
+    def update(self):
+        """
+        Updates the menu and button location
+        :return: None
+        """
+        for button in self.buttons:
+            button.update()
 
 
 class VerticalMenu(Menu):
@@ -86,6 +89,19 @@ class VerticalMenu(Menu):
         self.background = image
         self.font = pygame.font.SysFont("arial", 20)
 
+    def draw(self, win):
+        """
+        Draws buttons and the background of the menu
+        :param win: The surface
+        :return: None
+        """
+        win.blit(self.background, (self.x - self.background.get_width() / 2, self.y + 20))
+        for item in self.buttons:
+            item.draw(win)
+            win.blit(self.gold, (item.x - 8, item.y + 8))
+            text = self.font.render(str(item.cost), True, (255, 255, 255))
+            win.blit(text, (item.x + 5, item.y - 10))
+
     def add_button(self, image, name, cost):
         """
         Adds the button to the menu
@@ -94,29 +110,50 @@ class VerticalMenu(Menu):
         :return: None
         """
         self.items += 1
-        button_x = self.x
-        button_y = self.y + (self.items - 1) * 40
+        button_x = self.x - 35
+        button_y = self.y + 30 + (self.items - 1) * 100
         self.buttons.append(VerticalButton(button_x, button_y, image, name, cost))
 
-    def get_tower_cost(self):
+    def get_tower_cost(self, name):
         """
-
-        :return:
+        Gets the cost of the tower
+        :param name: The button name
+        :return: int
         """
-        return None
+        for button in self.buttons:
+            if button.name == name:
+                return button.cost
+        return -1
 
 
 class Button:
     """
     Class for the buttons in the menu
     """
-    def __init__(self, x, y, image, name):
+    def __init__(self, menu, image, name):
         self.image = image
-        self.x = x
-        self.y = y
+        self.menu = menu
+        self.x = menu.x - 40
+        self.y = menu.y + 23
         self.width = self.image.get_width()
         self.height = self.image.get_height()
         self.name = name
+
+    def draw(self, win):
+        """
+        Draws the button
+        :param win: The surface
+        :return: None
+        """
+        win.blit(self.image, (self.x, self.y))
+
+    def update(self):
+        """
+        Updates the position of the button
+        :return: None
+        """
+        self.x = self.menu.x - 40
+        self.y = self.menu.y + 23
 
     def click(self, X, Y):
         """
@@ -125,13 +162,8 @@ class Button:
         :param Y: Y position int
         :return: bool
         """
-        if X <= self.x + self.width and X >= self.x:
-            if Y <= self.y + self.height and Y >= self.y:
-                return True
-        return False
-
-    def draw(self, win):
-        win.blit(self.image, (self.x, self.y))
+        return (X <= self.x + self.width and X >= self.x) \
+               and (Y <= self.y + self.height and Y >= self.y)
 
 
 class VerticalButton(Button):
@@ -139,5 +171,10 @@ class VerticalButton(Button):
     Class for the vertical buttons in the menu
     """
     def __init__(self, x, y, image, name, cost):
-        super().__init__(x, y, img, name)
+        self.image = image
+        self.x = x
+        self.y = y
+        self.width = self.image.get_width()
+        self.height = self.image.get_height()
+        self.name = name
         self.cost = cost
